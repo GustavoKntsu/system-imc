@@ -70,6 +70,7 @@ public class MainController implements Initializable {
     public void onCalcularIMCClick() {
         lerformulario();
         this.pessoa.calcularIMC();
+        this.pessoa.classificacaoIMC();
         exibirClassificacaoIMC();
         System.out.println(this.pessoa.toString());
 
