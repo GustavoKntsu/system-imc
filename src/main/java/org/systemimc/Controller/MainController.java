@@ -1,5 +1,6 @@
 package org.systemimc.Controller;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -24,9 +25,9 @@ public class MainController implements Initializable {
     @FXML
     public TextField txtPeso;
     @FXML
-    public Label lblIMC;
+    public Label lbIMC;
     @FXML
-    public Label lblClassificacao;
+    public Label lbClassificacao;
     //************************************
     @FXML
     TableView<Pessoa> tbPessoas;
@@ -66,16 +67,48 @@ public class MainController implements Initializable {
 
     //******************************************************
     @FXML
-    protected void onCalcularIMCClick() {
-        DecimalFormat df = new DecimalFormat();
+    public void onCalcularIMCClick() {
+        lerformulario();
+        this.pessoa.calcularIMC();
+        exibirClassificacaoIMC();
+        System.out.println(this.pessoa.toString());
+
+    }
+
+    @FXML
+    public void onClickSalvarIMC(){
+        lerformulario();
+        this.listaPessoas.add(this.pessoa);
+        atualizarTableView();
+    }
+
+    @FXML
+    public void onClickNovo(){
+        this.pessoa = new Pessoa();
+        this.txtNome.setText("");
+        this.txtAltura.setText("");
+        this.txtPeso.setText("");
+    }
+
+
+    //*************************************************************
+
+    private void lerformulario(){
         this.pessoa.setNome(this.txtNome.getText()) ;
         this.pessoa.setAltura( Float.parseFloat(txtAltura.getText()));
         this.pessoa.setPeso( Float.parseFloat(txtPeso.getText()));
-
-
-        df.applyPattern("#0.00");
-        this.lblIMC.setText(df.format(this.pessoa.calcularIMC()));
-        this.lblClassificacao.setText(this.pessoa.classificacaoIMC());
-
     }
+
+    public void exibirClassificacaoIMC(){
+        DecimalFormat df = new DecimalFormat("#0.00");
+        lbIMC.setText(df.format(this.pessoa.getImc()));
+        lbClassificacao.setText(this.pessoa.getClassificacao());
+    }
+
+    public void atualizarTableView(){
+        this.listaPessoas.forEach( obj -> System.out.printf(obj.getNome() +", " + obj.getPeso() +", " + obj.getAltura() +"\n"));
+        this.observableListPessoas = FXCollections.observableList(this.listaPessoas);
+        this.tbPessoas.setItems(this.observableListPessoas);
+    }
+
 }

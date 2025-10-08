@@ -114,7 +114,7 @@
                                 <Font name="System Bold" size="24.0" />
                             </font>
                         </Label>
-                        <Label fx:id="lblIMC" text="00.00">
+                        <Label fx:id="lbIMC" text="00.00">
                             <VBox.margin>
                                 <Insets bottom="20.0" top="20.0" />
                             </VBox.margin>
@@ -122,7 +122,7 @@
                                 <Font size="96.0" />
                             </font>
                         </Label>
-                        <Label fx:id="lblClassificacao" />
+                        <Label fx:id="lbClassificacao" />
                     </children>
                 </VBox>
             </children>
