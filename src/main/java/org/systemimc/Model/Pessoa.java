@@ -22,6 +22,7 @@ public class Pessoa {
 
     //***************************************************************
     //Get & Set
+
     public static int getId() {
         return id;
     }
@@ -30,12 +31,32 @@ public class Pessoa {
         Pessoa.id = id;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public Float getAltura() {
+        return altura;
+    }
+
     public void setAltura(Float altura) {
         this.altura = altura;
     }
 
+    public Float getPeso() {
+        return peso;
+    }
+
     public void setPeso(Float peso) {
         this.peso = peso;
+    }
+
+    public Float getImc() {
+        return imc;
     }
 
     public void setImc(Float imc) {
