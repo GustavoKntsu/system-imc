@@ -50,10 +50,11 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-    this.pessoa = new Pessoa();
-    this.listaPessoas = new ArrayList<>();
-    iniciarGUI();
-}
+        this.pessoa = new Pessoa();
+        this.listaPessoas = new ArrayList<>();
+        this.observableListPessoas = FXCollections.observableArrayList();
+        iniciarGUI();
+    }
 
     public void iniciarGUI(){
         // VINCULAR AS CADA CELULA DA LINHA DA TABELA COM O ATRIBUTO DO OBJETO PESSOA
@@ -77,10 +78,26 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void onClickSalvarIMC(){
-        lerformulario();
-        this.listaPessoas.add(this.pessoa);
-        atualizarTableView();
+    public void onClickSalvarIMC() {
+        try {
+            lerformulario();
+            this.pessoa.calcularIMC();
+            this.pessoa.classificacaoIMC();
+            this.listaPessoas.add(this.pessoa);
+            atualizarTableView();
+
+            // Limpar campos para melhor feedback visual
+            this.txtNome.clear();
+            this.txtPeso.clear();
+            this.txtAltura.clear();
+            this.lbIMC.setText("");
+            this.lbClassificacao.setText("");
+
+            // Nova pessoa para próximo cadastro
+            this.pessoa = new Pessoa();
+        } catch (Exception e) {
+            System.err.println("Erro ao salvar: " + e.getMessage());
+        }
     }
 
     @FXML
@@ -106,10 +123,21 @@ public class MainController implements Initializable {
         lbClassificacao.setText(this.pessoa.getClassificacao());
     }
 
-    public void atualizarTableView(){
-        this.listaPessoas.forEach( obj -> System.out.printf(obj.getNome() +", " + obj.getPeso() +", " + obj.getAltura() +"\n"));
-        this.observableListPessoas = FXCollections.observableList(this.listaPessoas);
-        this.tbPessoas.setItems(this.observableListPessoas);
+    public void atualizarTableView() {
+        try {
+            // Usar setAll é mais eficiente que recriar a lista
+            observableListPessoas.setAll(listaPessoas);
+            tbPessoas.setItems(observableListPessoas);
+
+            // Log para depuração
+            System.out.println("Adicionado " + listaPessoas.size() + " pessoas à tabela");
+
+            // Forçar atualização da tabela
+            tbPessoas.refresh();
+        } catch (Exception e) {
+            System.err.println("Erro ao atualizar tabela: " + e.getMessage());
+        }
     }
+
 
 }

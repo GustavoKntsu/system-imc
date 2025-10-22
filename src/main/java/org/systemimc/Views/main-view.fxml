@@ -87,7 +87,7 @@
                               <Font name="Calibri" size="13.0" />
                            </font>
                                 </Button>
-                                <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="120.0" style="-fx-background-color: #808080;" text="Salvar" textFill="WHITE">
+                                <Button mnemonicParsing="false" onAction="#onClickSalvarIMC" prefHeight="32.0" prefWidth="120.0" style="-fx-background-color: #808080;" text="Salvar" textFill="WHITE">
                                     <HBox.margin>
                                         <Insets left="10.0" right="10.0" />
                                     </HBox.margin>
@@ -95,7 +95,7 @@
                               <Font name="Calibri" size="13.0" />
                            </font>
                                 </Button>
-                                <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="120.0" style="-fx-background-color: #808080;" text="Carregar Dados" textFill="WHITE">
+                                <Button mnemonicParsing="false" onAction="#onClickNovo" prefHeight="32.0" prefWidth="120.0" style="-fx-background-color: #808080;" text="Carregar Dados" textFill="WHITE">
                                     <HBox.margin>
                                         <Insets />
                                     </HBox.margin>
@@ -127,12 +127,12 @@
                 </VBox>
             </children>
         </HBox>
-        <TableView prefHeight="229.0" prefWidth="730.0">
+        <TableView fx:id="tbPessoas" prefHeight="229.0" prefWidth="730.0">
             <columns>
                 <TableColumn fx:id="colId" prefWidth="75.0" text="ID" />
                 <TableColumn fx:id="colNome" prefWidth="307.19998931884766" text="NOME" />
-                <TableColumn fx:id="colAltura" prefWidth="120.00006103515625" text="Altura" />
                 <TableColumn fx:id="colPeso" prefWidth="100.79995727539062" text="Peso" />
+                <TableColumn fx:id="colAltura" prefWidth="120.00006103515625" text="Altura" />
                 <TableColumn fx:id="colIMC" prefWidth="119.199951171875" text="IMC" />
             </columns>
         </TableView>
